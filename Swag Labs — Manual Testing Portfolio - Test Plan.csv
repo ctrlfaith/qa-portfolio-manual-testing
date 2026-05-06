@@ -1,0 +1,29 @@
+Test Plan,
+Project,Swag Labs — Manual Testing (saucedemo.com)
+Tester,Phuriphatthanachai Rattanatham
+Date,"April 24, 2026"
+Version,1
+,
+Objective,ทดสอบ web application Swag Labs แบบ manual เพื่อตรวจสอบว่า feature หลักทำงานถูกต้อง และค้นหา bug ที่อาจเกิดขึ้นในการใช้งานจริง
+,
+Scope,
+In Scope,"Login, Product List, Product Detail, Cart, Checkout"
+Out of Scope,"About page, Social media links, Performance testing"
+,
+Test Approach,Manual Testing + Exploratory Testing โดยใช้ browser และ DevTools
+,
+Test Users,"standard_user, locked_out_user, problem_user, error_user, visual_user"
+,
+Tools,"Chrome Browser, Chrome DevTools, Google Sheets"
+,
+Entry Criteria,เข้าถึง saucedemo.com ได้ปกติ และ login ด้วย standard_user สำเร็จ
+Exit Criteria,ทดสอบครบทุก feature ใน scope และบันทึกผลใน Test Cases sheet
+,
+User Testing Strategy,
+User,Testing Scope
+standard_user,Full regression ทดสอบครบทุก feature ใช้เป็น baseline สำหรับ user อื่น
+locked_out_user,ทดสอบเฉพาะ Login flow
+problem_user,"ทดสอบเฉพาะ feature ที่พบความผิดปกติ ได้แก่ รูปสินค้า, Sort, Add to cart, Remove, Hamburger menu > About"
+performance_glitch_user,ทดสอบ Login และ Product List โดยสังเกต response time
+error_user,ทดสอบเฉพาะ feature ที่พบ error behavior
+visual_user,ทดสอบเฉพาะ feature ที่พบความผิดปกติด้าน UI

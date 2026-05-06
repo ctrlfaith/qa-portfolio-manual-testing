@@ -1,0 +1,650 @@
+ TC ID,Feature ,User ,Type ,Test Description,Pre-Condition,Test Step,Expected Result,Actual Result,Status,Notes
+➜] Login ,,,,,,,,,,
+TC-L-001,Login,,Happy Path,ตรวจสอบการแสดงผล Layout หลัก หน้า Login,,1. เปิด saucedemo.com,"- ระบบแสดงผล ดังนี้:
+- Title ""Swag Labs""
+- Username field
+- Password field
+- ปุ่ม Login
+- Section ""Accepted usernames are"" พร้อมแสดงรายชื่อ user ครบทั้ง 6 รายการ ได้แก่ standard_user, locked_out_user, problem_user, performance_glitch_user, error_user, visual_user
+- Section ""Password for all users"" พร้อมแสดง password: secret_sauce",,Pass,
+TC-L-002,Login,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก username และ password ถูกต้อง",เปิด saucedemo.com,"1. กรอก username: standard_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,
+TC-L-003,Login,,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login โดยไม่กรอก username และ password",เปิด saucedemo.com,"1. ไม่กรอก username และ password
+2. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และไม่ Redirect ออกจากหน้า Login
+- Username field และ Password field แสดงเส้นใต้สีแดง พร้อม icon ❌ ด้านขวา
+- แสดง error banner สีแดง ข้อความ ""Epic sadface: Username is required""",,Pass,ระบบ validate ทีละ field ตามลำดับ แสดง error Username ก่อน แม้จะไม่ได้กรอกทั้งคู่ ถือเป็น expected behavior
+TC-L-004,Login,,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: ไม่กรอก username",เปิด saucedemo.com,"1. ไม่กรอก username
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และไม่ Redirect ออกจากหน้า Login
+- Username field และ Password field แสดงเส้นใต้สีแดง พร้อม icon ❌ ด้านขวา
+- แสดง error banner สีแดง ข้อความ ""Epic sadface: Username is required""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-005,Login,standard_user,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: ไม่กรอก password",เปิด saucedemo.com,"1. กรอก username: standard_user
+2. ไม่กรอก password
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และไม่ Redirect ออกจากหน้า Login
+- Username field และ Password field แสดงเส้นใต้สีแดง พร้อม icon ❌ ด้านขวา
+- แสดง error banner สีแดง ข้อความ ""Epic sadface: Password is required""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-006,Login,,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก username ไม่ถูกต้อง",เปิด saucedemo.com,"1. กรอก username: wronguser 
+2. กรอก password: secret_sauce 
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และไม่ Redirect ออกจากหน้า Login
+- Username field และ Password field แสดงเส้นใต้สีแดง พร้อม icon ❌ ด้านขวา
+- แสดง error banner สีแดง ข้อความ ""Epic sadface: Username and password do not match any user in this service""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-007,Login,standard_user,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก password ไม่ถูกต้อง",เปิด saucedemo.com,"1. กรอก username: standard_user
+2. กรอก password: wrongpass
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และไม่ Redirect ออกจากหน้า Login
+- Username field และ Password field แสดงเส้นใต้สีแดง พร้อม icon ❌ ด้านขวา
+- แสดง error banner สีแดง ข้อความ ""Epic sadface: Username and password do not match any user in this service""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-008,Login,locked_out_user,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login ด้วย locked_out_user",เปิด saucedemo.com,"1. กรอก username: locked_out_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Sorry, this user has been locked out.""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-009,Login,,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก space แทน username",เปิด saucedemo.com,"1. กรอก username: "" "" (กดปุ่ม space อย่างน้อย 1 ครั้ง)
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Username and password do not match any user in this service.""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-010,Login,standard_user,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก space แทน password",เปิด saucedemo.com,"1. กรอก username: standard_user
+2. กรอก password: "" "" (กดปุ่ม space อย่างน้อย 1 ครั้ง)
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Username and password do not match any user in this service.""",,Pass,"พฤติกรรมของ ❌ สรุปจาก pattern การทดสอบ 
+
+- ระบบแสดง ❌ ทุก field เมื่อเกิด error ไม่ว่าจะกรอกข้อมูลมาหรือไม่ ไม่มี spec ยืนยัน"
+TC-L-011,Login,,Negative,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก SQL Injection แทน username",เปิด saucedemo.com,"1. กรอก username: ' OR '1'='1
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login","- ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Username and password do not match any user in this service.""",,Pass,ระบบ reject SQL Injection และแสดง error message ปกติ อย่างไรก็ตาม saucedemo ใช้ client-side authentication จึงไม่สามารถสรุปได้ว่าระบบป้องกัน SQL Injection จริงหรือไม่
+TC-L-012,Login,problem_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login ด้วย problem_user",เปิด saucedemo.com,"1. กรอก username: problem_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,
+TC-L-013,Login,performance_glitch_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login ด้วย performance_glitch_user",เปิด saucedemo.com,"1. กรอก username: performance_glitch_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,"พบความล่าช้าผิดปกติระหว่าง login วัด INP ด้วย Chrome DevTools Performance tab ได้ 5,064 ms เทียบกับ standard_user ที่วัดได้ 80 ms"
+TC-L-014,Login,error_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login ด้วย error_user",เปิด saucedemo.com,"1. กรอก username: error_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,
+TC-L-015,Login,visual_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: Login ด้วย visual_user",เปิด saucedemo.com,"1. กรอก username: visual_user
+2. กรอก password: secret_sauce
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,- พบ UI bug หลายจุดในหน้า inventory.html บันทึกแยกใน Bug Report
+TC-L-016,Login,standard_user,Edge Case,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก username ด้วยตัวอักษรพิมพ์ใหญ่",เปิด saucedemo.com,"1. กรอก username: Standard_user 
+2. กรอก password: secret_sauce 
+3. กดปุ่ม Login",- ระบบ Redirect ไปหน้า Products (/inventory.html),"ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Username and password do not match any user in this service.""",Fail,
+TC-L-017,Login,standard_user,Edge Case,"ตรวจสอบการทำงานของปุ่ม Login 
+
+in case: กรอก password ด้วยตัวอักษรพิมพ์ใหญ่",เปิด saucedemo.com,"1. กรอก username: standard_user 
+2. กรอก password: Secret_sauce 
+3. กดปุ่ม Login","ระบบไม่อนุญาตให้ Login และแสดง error message ""Epic sadface: Username and password do not match any user in this service.""",,Pass,
+🛍️ Product List,,,,,,,,,,
+👤 standard_user,,,,,,,,,,
+TC-L-020,Product List,standard_user,Happy Path,"ตรวจสอบการแสดงผล layout หลัก หน้า Product List
+
+in case: Login ด้วย standard_user","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. ตรวจสอบการแสดงผล layout หลัก หน้า Product List
+","- ระบบ แสดง Header ""Swag Labs""
+- แสดง Hamburger menu (☰) ด้านซ้าย
+- แสดง Cart icon ด้านขวา
+- แสดง Title ""Products"" ด้านซ้าย
+- แสดง Filter icon และ Sort dropdown ด้านขวา
+- แสดงรายการสินค้า โดยแต่ละรายการมี รูปสินค้า, ชื่อสินค้า, คำอธิบาย, ราคา และปุ่ม ""Add to cart""
+- แสดง Footer พร้อม Social media icons และ Copyright",,Pass,
+TC-L-021,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Name (A to Z)","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Name (A to Z) จาก Sort dropdown,ระบบเรียงลำดับสินค้าตามชื่อจาก A ถึง Z โดยสินค้าที่ชื่อขึ้นต้นด้วยตัวอักษรที่อยู่ก่อนในลำดับตัวอักษรจะแสดงก่อน,,Pass,
+TC-L-022,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Name (Z to A)","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Name (Z to A) จาก Sort dropdown,ระบบเรียงลำดับสินค้าตามชื่อจาก Z ถึง A โดยสินค้าที่ชื่อขึ้นต้นด้วยตัวอักษรที่อยู่หลังในลำดับตัวอักษรจะแสดงก่อน,,Pass,
+TC-L-023,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (low to high)","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (low to high) จาก Sort dropdown,ระบบเรียงลำดับสินค้าจากราคาต่ำสุดไปสูงสุด โดยสินค้าที่มีราคาน้อยกว่าจะแสดงก่อน,,Pass,
+TC-L-024,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (high to low)","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (high to low) จาก Sort dropdown,ระบบเรียงลำดับสินค้าจากราคาสูงสุดไปต่ำสุด โดยสินค้าที่มีราคามากกว่าจะแสดงก่อน,,Pass,
+TC-L-025,Product List,standard_user,Edge Case,"ตรวจสอบการทำงานของ Sort dropdown 
+
+in case: เปลี่ยน sort หลังเพิ่มสินค้าลงตะกร้าแล้ว","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- มีสินค้าอย่างน้อย 1 รายการในตะกร้า","1. กดปุ่ม Add to cart ของสินค้าใดก็ได้ 1 รายการ
+2. เปลี่ยน Sort dropdown เป็น option อื่น เช่น Name (Z to A)","- ระบบเรียงลำดับสินค้าตาม sort option ที่เลือก
+- ปุ่มของสินค้าที่เพิ่มไว้ยังแสดงเป็น Remove
+- Cart badge ยังแสดงจำนวนสินค้าที่ถูกต้อง",,Pass,
+TC-L-026,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Add to cart 
+
+in case: กดเพิ่มสินค้าลงตะกร้า","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. กดปุ่ม Add to cart ของสินค้าใดก็ได้","- ปุ่ม Add to cart เปลี่ยนเป็นปุ่ม Remove
+- Cart icon แสดง badge จำนวน 1
+- ไม่สามารถกดเพิ่มสินค้าชิ้นเดิมลงตะกร้าได้อีก เนื่องจากปุ่ม Add to cart ถูกแทนที่ด้วยปุ่ม Remove",,Pass,
+TC-L-027,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Remove 
+
+in case: กดลบสินค้าออกจากตะกร้า","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- มีสินค้าอยู่ในตะกร้าแล้ว 1 ชิ้น","1. กดปุ่ม Remove ของสินค้าที่เพิ่มไว้","- ปุ่ม Remove เปลี่ยนกลับเป็นปุ่ม Add to cart
+- Cart icon กลับสู่สถานะเริ่มต้น โดยไม่แสดงตัวเลขจำนวนสินค้า",,Pass,
+TC-L-028,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Add to cart 
+
+in case: กดเพิ่มสินค้าหลายชิ้น","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. กดปุ่ม Add to cart ของสินค้ามากกว่า 1 ชิ้น,Cart icon แสดง badge ตรงกับจำนวนสินค้าที่กด Add to cart,,Pass,
+TC-L-029,Product List,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Product Detail 
+
+in case: กดชื่อสินค้า","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. คลิกที่ชื่อสินค้าใดก็ได้,ระบบ Redirect ไปหน้า Product Detail ของสินค้านั้น,,Pass,
+TC-L-030,Product List,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Product Detail 
+
+in case: กดรูปสินค้า","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. คลิกที่รูปสินค้าใดก็ได้,ระบบ Redirect ไปหน้า Product Detail ของสินค้านั้น,,Pass,
+TC-L-031,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: กดเปิด sidebar","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. กด Hamburger menu icon (☰),"- Sidebar เปิดขึ้น 
+- แสดงปุ่ม ✕ สำหรับปิด Sidebar
+- แสดง menu items 4 รายการ ได้แก่: 
+  - All Items
+  - About
+  - Logout
+  - Reset App State",,Pass,
+TC-L-032,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: กดปุ่ม ✕ เพื่อปิด sidebar","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- Sidebar ถูกเปิดอยู่",1. กดปุ่ม ✕ บน sidebar,"- Sidebar ถูกปิดโดยเลื่อนกลับเข้าไปทางด้านซ้าย
+- หน้า Product List แสดงผลปกติ",,Pass,
+TC-L-033,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก All Items","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว
+- อยู่หน้า Product Detail ของสินค้าใดก็ได้
+- Sidebar ถูกเปิดอยู่",1. เลือกเมนู All Items,"- ระบบ Redirect กลับหน้า /inventory.html
+- แสดงรายการสินค้าครบทุกรายการ",,Pass,
+TC-L-034,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก About","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- Sidebar ถูกเปิดอยู่",1. เลือกเมนู About,ระบบ Redirect ไปหน้า About ของ Sauce Labs,,Pass,
+TC-L-035,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก Logout","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- Sidebar ถูกเปิดอยู่",1. เลือกเมนู Logout,ระบบ Logout และ Redirect กลับหน้า Login,,Pass,
+TC-L-036,Product List,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก Reset App State","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- Sidebar ถูกเปิดอยู่
+- มีสินค้าอยู่ในตะกร้าแล้ว",1. เลือกเมนู Reset App State,"- Cart icon กลับสู่สถานะเริ่มต้น โดยไม่แสดงตัวเลขจำนวนสินค้า
+- ปุ่มสินค้าทุกชิ้นเปลี่ยนกลับเป็นปุ่ม Add to cart","- Cart icon กลับสู่สถานะเริ่มต้น โดยไม่แสดงตัวเลขจำนวนสินค้า
+- ปุ่มสินค้ายังคงเป็นปุ่ม Remove ไม่เปลี่ยนกลับแบบ real-time ต้องรีเฟรชหน้าก่อน",Fail,
+TC-L-037,Product List,standard_user,Happy Path,"ตรวจสอบการนำทางของ Cart icon
+
+in case: กด Cart icon","- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. กด Cart icon มุมขวาบน,ระบบ Redirect ไปหน้า /cart.html,,Pass,
+TC-L-038,Product List,standard_user,Happy Path,ตรวจสอบการแสดงผลชื่อสินค้าและ description,"- เปิด saucedemo.com
+- Login ด้วย standard_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบการแสดงผล ชื่อสินค้าและ description ของสินค้าทุกรายการ,ชื่อสินค้าและ description แสดงข้อความที่ถูกต้องตามมาตรฐาน product copy,- ชื่อสินค้าและ description บางรายการแสดง code syntax ปนอยู่,Fail,"พบในทุก user (standard_user, problem_user, performance_glitch_user, error_user, visual_user)"
+👤 problem_user,,,,,,,,,,
+TC-L-040,Product List,problem_user,User-specific,"ตรวจสอบการแสดงผลรูปสินค้า
+
+in case: Login ด้วย problem_user","- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบการแสดงผลรูปสินค้าในหน้า Product List,- รูปสินค้าแต่ละรายการแสดงตรงกับชื่อสินค้า,- รูปสินค้าทุกรายการแสดงไม่ตรงกับสินค้า,Fail,
+TC-L-041,Product List,problem_user,User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Name (Z to A)","- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Name (Z to A) จาก Sort dropdown,- ระบบเรียงลำดับสินค้าตามชื่อจาก Z ถึง A โดยสินค้าที่ชื่อขึ้นต้นด้วยตัวอักษรที่อยู่หลังในลำดับตัวอักษรจะแสดงก่อน,- Sort dropdown ไม่ทำงาน สินค้าแสดงเป็น Name (A to Z) ตลอด,Fail,
+TC-L-042,Product List,problem_user,User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (low to high)","- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (low to high) จาก Sort dropdown,- ระบบเรียงลำดับสินค้าจากราคาต่ำสุดไปสูงสุด โดยสินค้าที่มีราคาน้อยกว่าจะแสดงก่อน,- Sort dropdown ไม่ทำงาน สินค้าแสดงเป็น Name (A to Z) ตลอด,Fail,
+TC-L-043,Product List,problem_user,User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (high to low) ","- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (high to low)  จาก Sort dropdown,- ระบบเรียงลำดับสินค้าจากราคาสูงสุดไปต่ำสุด โดยสินค้าที่มีราคามากกว่าจะแสดงก่อน,- Sort dropdown ไม่ทำงาน สินค้าแสดงเป็น Name (A to Z) ตลอด,Fail,
+TC-L-044,Product List,problem_user,User-specific,ตรวจสอบการทำงานของปุ่ม Add to cart,"- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. กดปุ่ม Add to cart ของสินค้าทุกรายการ
+","- ปุ่มเปลี่ยนเป็น Remove
+- Cart icon แสดงจำนวนสินค้าที่เพิ่ม","- บางรายการกดปุ่ม Add to cart แล้วไม่มีการตอบสนอง
+",Fail,
+TC-L-045,Product List,problem_user,User-specific,ตรวจสอบการทำงานของปุ่ม Remove,"- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- มีสินค้าอยู่ในตะกร้าแล้ว","1. กดปุ่ม Remove ของสินค้าที่อยู่ในตะกร้า","- ปุ่ม Remove เปลี่ยนกลับเป็นปุ่ม Add to cart
+- Cart icon อัปเดตจำนวนสินค้าลดลง",- ปุ่มไม่เปลี่ยนกลับเป็น Add to cart หลังกด Remove,Fail,
+TC-L-046,Product List,problem_user,User-specific,"ตรวจสอบการทำงานของ Hamburger menu
+in case: เลือกเมนู About","- เปิด saucedemo.com
+- Login ด้วย problem_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- Sidebar ถูกเปิดอยู่","1. เลือกเมนู About",- ระบบ Redirect ไปหน้า About ของ Sauce Labs,- ระบบ Redirect ไปหน้า saucelabs.com/error/404 แทน,Fail,
+👤 performance_glitch_user,,,,,,,,,,
+TC-L-048,Product List,performance_glitch_user,User-specific,ตรวจสอบ load time ของหน้า Product List,"- เปิด saucedemo.com
+- Login ด้วย performance_glitch_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. สังเกต load time ขณะเข้าหน้า Product List,- หน้า Product List โหลดในเวลาที่ใกล้เคียงกับ standard_user,"พบความล่าช้าผิดปกติ วัด LCP ด้วย Chrome DevTools Performance tab ได้ 5.30s เทียบกับ standard_user ที่วัดได้ 0.75s
+",Fail,
+👤 error_user,,,,,,,,,,
+TC-L-050,Product List,error_user,Happy Path,"ตรวจสอบการแสดงผล layout หลัก หน้า Product List
+
+in case: Login ด้วย error_user","- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. ตรวจสอบการแสดงผล layout หลัก หน้า Product List
+","- ระบบแสดง Header ""Swag Labs""
+- แสดง Hamburger menu (☰) ด้านซ้าย
+- แสดง Cart icon ด้านขวา
+- แสดง Title ""Products"" ด้านซ้าย
+- แสดง Filter icon และ Sort dropdown ด้านขวา
+- แสดงรายการสินค้า โดยแต่ละรายการมี รูปสินค้า, ชื่อสินค้า, คำอธิบาย, ราคา และปุ่ม ""Add to cart""
+- แสดง Footer พร้อม Social media icons และ Copyright",,Pass,
+TC-L-051,Product List,"error_user
+",User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Name (Z to A)","- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Name (Z to A) จาก Sort dropdown,- ระบบเรียงลำดับสินค้าตามชื่อจาก Z ถึง A โดยสินค้าที่ชื่อขึ้นต้นด้วยตัวอักษรที่อยู่หลังในลำดับตัวอักษรจะแสดงก่อน,"- ระบบแสดง popup error ""Sorting is broken! This error has been reported to Backtrace.""
+- ไม่สามารถกรองสินค้าตามเมนูที่เลือกได้",Fail,
+TC-L-052,Product List,"error_user",User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (low to high)","- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (low to high) จาก Sort dropdown,- ระบบเรียงลำดับสินค้าจากราคาต่ำสุดไปสูงสุด โดยสินค้าที่มีราคาน้อยกว่าจะแสดงก่อน,"- ระบบแสดง popup error ""Sorting is broken! This error has been reported to Backtrace.""
+- ไม่สามารถกรองสินค้าตามเมนูที่เลือกได้",Fail,
+TC-L-053,Product List,"error_user",User-specific,"ตรวจสอบการทำงานของ Sort dropdown
+
+in case: เลือก Price (high to low) ","- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. เลือก Price (high to low)  จาก Sort dropdown,- ระบบเรียงลำดับสินค้าจากราคาสูงสุดไปต่ำสุด โดยสินค้าที่มีราคามากกว่าจะแสดงก่อน,"- ระบบแสดง popup error ""Sorting is broken! This error has been reported to Backtrace.""
+- ไม่สามารถกรองสินค้าตามเมนูที่เลือกได้",Fail,
+TC-L-054,Product List,"error_user",User-specific,ตรวจสอบการทำงานของปุ่ม Add to cart,"- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. กดปุ่ม Add to cart ของสินค้าทุกรายการ
+","- ปุ่มเปลี่ยนเป็น Remove
+- Cart icon แสดงจำนวนสินค้าที่เพิ่ม","- บางรายการกดปุ่ม Add to cart แล้วไม่มีการตอบสนอง
+",Fail,
+TC-L-055,Product List,"error_user",User-specific,ตรวจสอบการทำงานของปุ่ม Remove,"- เปิด saucedemo.com
+- Login ด้วย error_user สำเร็จแล้ว อยู่หน้า /inventory.html
+- มีสินค้าอยู่ในตะกร้าแล้ว","1. กดปุ่ม Remove ของสินค้าที่อยู่ในตะกร้า","- ปุ่ม Remove เปลี่ยนกลับเป็นปุ่ม Add to cart
+- Cart icon อัปเดตจำนวนสินค้าลดลง",- ปุ่มไม่เปลี่ยนกลับเป็น Add to cart หลังกด Remove,Fail,
+👤 visual_user,,,,,,,,,,
+TC-L-057,Product List,visual_user,User-specific,ตรวจสอบการแสดงผลรูปสินค้า,"- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบการแสดงผลรูปสินค้าในหน้า Product List,- รูปสินค้าแต่ละรายการแสดงตรงกับชื่อสินค้า,- รูปสินค้าการ์ดแรกแสดงไม่ตรงกับสินค้า ไม่ว่าจะเลือก Sort option ใด,Fail,
+TC-L-058,Product List,visual_user,User-specific,ตรวจสอบการแสดงผลราคาสินค้า,"- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบราคาสินค้าทุกรายการในหน้า Product List,- ราคาสินค้าแต่ละรายการแสดงตรงกับราคาจริง,- ราคาสินค้าทุกรายการแสดงไม่ถูกต้อง,Fail,
+TC-L-059,Product List,visual_user,User-specific,ตรวจสอบการแสดงผล Cart icon,"- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. ตรวจสอบตำแหน่งและการแสดงผล Cart icon บนหน้า Product List",- Cart icon แสดงอยู่ในตำแหน่งที่ถูกต้องและสมดุล,- Cart icon แสดงผิดตำแหน่ง ไม่สมดุลกับ layout ของหน้า,Fail,
+TC-L-060,Product List,visual_user,User-specific,"ตรวจสอบการแสดงผล Hamburger menu icon","- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html","1. ตรวจสอบการแสดงผล Hamburger menu icon บนหน้า Product List",- Hamburger menu icon แสดงผลถูกต้องและสมดุล,- Hamburger menu icon แสดงผลเบี้ยว ไม่สมดุล,Fail,
+TC-L-061,Product List,visual_user,User-specific,ตรวจสอบการแสดงผลชื่อสินค้า,"- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบการจัดวางชื่อสินค้าทุกรายการในหน้า Product List,- ชื่อสินค้าทุกรายการจัดชิดซ้ายสม่ำเสมอ,- ชื่อสินค้าบางรายการจัดกลางแทนชิดซ้าย ทำให้ layout ไม่สม่ำเสมอ,Fail,
+TC-L-062,Product List,visual_user,User-specific,ตรวจสอบความคงที่ของราคาสินค้าในหน้า Product List,"- Login ด้วย visual_user
+- อยู่หน้า Product List","1. กดเข้าหน้า Product Detail ของสินค้าใดก็ได้
+2. ตรวจสอบการแสดงผลราคาที่แสดง
+3. กด ← Back to products
+4. ทำซ้ำ step 1-3 อย่างน้อย 3 รอบ 
+5. ตรวจสอบการแสดงผลราคาที่แสดง",- ราคาสินค้าแสดงค่าเดียวกันทุกครั้งที่โหลดหน้า และตรงกับราคาที่แสดงในหน้า Product Detail,"- ราคาสินค้าที่แสดงในหน้า Product List ไม่ตรงกับราคาจริง ในหน้า Product Detail 
+- ราคาสินค้าเปลี่ยนแปลงทุกครั้งที่กดเข้าหน้า Product Detail แล้วกลับมาหน้า Product List",Fail,
+TC-L-063,Product List,visual_user,User-specific,ตรวจสอบการแสดงผลปุ่ม Add to cart,"- เปิด saucedemo.com
+- Login ด้วย visual_user สำเร็จแล้ว อยู่หน้า /inventory.html",1. ตรวจสอบการแสดงผลปุ่ม Add to cart ของสินค้าทุกรายการ,- ปุ่ม Add to cart ของทุกรายการแสดงอยู่ภายในกรอบการ์ดสินค้า,- ปุ่ม Add to cart ของการ์ดสุดท้ายล้นออกนอกกรอบการ์ด ไม่ว่าจะเลือก Sort option ใด,Fail,
+📑 Product Detail,,,,,,,,,,
+👤 standard_user,,,,,,,,,,
+TC-L-066,Product Detail,standard_user,Happy Path,"ตรวจสอบการแสดงผล layout หลัก หน้า Product Detail
+
+in case: Login ด้วย standard_user","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product List",1. กดที่ชื่อ หรือรูปสินค้าใดก็ได้ 1 รายการ,"- ระบบ Redirect ไปหน้า Product Detail (/inventory-item.html)
+- แสดงผล layout ครบถ้วนดังนี้:
+  - Hamburger menu icon (มุมบนซ้าย)
+  - Title ""Swag Labs"" (กลางหน้า)
+  - Cart icon (มุมบนขวา)
+  - ลิงก์ ⭠ Back to products (ใต้ header)
+  - รูปสินค้าที่ตรงกับสินค้าที่เลือก
+  - ชื่อสินค้า
+  - Description ของสินค้า
+  - ราคาสินค้า (format: $XX.XX)
+  - ปุ่ม Add to cart",,Pass,
+TC-L-067,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Add to cart 
+
+in case: กดเพิ่มสินค้าจากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail",1. กดปุ่ม Add to cart,ปุ่มเปลี่ยนเป็น Remove และ Cart icon badge แสดงตัวเลข 1,,Pass,
+TC-L-068,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Remove 
+
+in case: กดลบสินค้าจากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail และกด Add to cart แล้ว",1. กดปุ่ม Remove,ปุ่มเปลี่ยนกลับเป็น Add to cart และ Cart icon กลับสู่สถานะเริ่มต้น โดยไม่แสดงตัวเลขจำนวนสินค้า,,Pass,
+TC-L-069,Product Detail,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Product List 
+
+in case: กด ⭠ Back to products","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail",1. กด ⭠ Back to products,ระบบ Redirect กลับไปหน้า Product List (/inventory.html),,Pass,
+TC-L-070,Product Detail,standard_user,Edge Case,"ตรวจสอบการทำงานของ Cart state 
+
+in case: กด ⭠ Back to products หลังเพิ่มสินค้าจากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail","1. กดปุ่ม Add to cart
+2. กด ⭠ Back to products","- ระบบ Redirect กลับหน้า Product List (/inventory.html)
+- ปุ่มของสินค้าที่เพิ่มไว้แสดงเป็น Remove
+- Cart icon badge แสดงตัวเลข 1",,Pass,
+TC-L-071,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: กดเปิด sidebar จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail",1. กด Hamburger menu icon (☰),"- Sidebar เปิดขึ้น 
+- แสดงปุ่ม ✕ สำหรับปิด Sidebar
+- แสดง menu items 4 รายการ ได้แก่: 
+  - All Items
+  - About
+  - Logout
+  - Reset App State",,Pass,
+TC-L-072,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: กด ✕ เพื่อปิด sidebar จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail
+- sidebar เปิดอยู่",1. กดปุ่ม ✕ บน sidebar,Sidebar ถูกปิดและกลับสู่หน้า Product Detail ตามปกติ,,Pass,
+TC-L-073,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก All Items จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail
+- sidebar เปิดอยู่",1. กดเลือกเมนู All Items,"- ระบบ Redirect กลับหน้า /inventory.html
+- แสดงรายการสินค้าครบทุกรายการ",,Pass,
+TC-L-074,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก About จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail
+- sidebar เปิดอยู่",1. กดเลือกเมนู About,ระบบ Redirect ไปหน้า About ของ Sauce Labs,,Pass,
+TC-L-075,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก Logout จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail
+- sidebar เปิดอยู่",1. กดเลือกเมนู Logout ,ระบบ Logout และ Redirect กลับหน้า Login,,Pass,
+TC-L-076,Product Detail,standard_user,Happy Path,"ตรวจสอบการทำงานของ Hamburger menu 
+
+in case: เลือก Reset App State จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail และเพิ่มสินค้าลง Cart แล้ว
+- sidebar เปิดอยู่",1. กดเลือกเมนู Reset App State,"- Cart icon กลับสู่สถานะเริ่มต้น โดยไม่แสดงตัวเลขจำนวนสินค้า
+- ปุ่มสินค้าเปลี่ยนกลับเป็นปุ่ม Add to cart",,Pass,
+TC-L-077,Product Detail,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Cart 
+
+in case: กด Cart icon จากหน้า Product Detail","- Login ด้วย standard_user สำเร็จ 
+- อยู่ที่หน้า Product Detail",1. กด Cart icon บน header,ระบบ Redirect ไปหน้า Cart (/cart.html),,Pass,
+👤 problem_user,,,,,,,,,,
+TC-L-079,Product Detail,problem_user,User-specific,"ตรวจสอบการนำทางไปหน้า Product Detail
+
+in case: กดชื่อหรือรูปสินค้าจากหน้า Product List","- Login ด้วย problem_user
+- อยู่หน้า Product List","1. กดชื่อหรือรูปสินค้าใดก็ได้
+2. ตรวจสอบการแสดงผล","- ระบบนำทางไปยังหน้า Product Detail ของสินค้าที่กดเลือก
+- URL ตรงกับ ID ของสินค้าที่เลือก","- URL ไม่ตรงกับสินค้าที่กดเลือก เช่น 
+กด Bolt T-Shirt → นำทางไปหน้า Onesie
+กด Backpack → นำทางไปหน้า Fleece Jacket",Fail,link mapping ของสินค้าทุกรายการผิด
+TC-L-080,Product Detail,problem_user,User-specific,"ตรวจสอบการแสดงผลข้อมูลสินค้าในหน้า Product Detail
+
+in case: Login ด้วย problem_user","- Login ด้วย problem_user
+- อยู่หน้า Product Detail",1. ตรวจสอบการแสดงผลข้อมูลสินค้า,"- ระบบแสดง: 
+   - ชื่อสินค้า
+   - รูปสินค้า
+   - description 
+   - ราคาสินค้า ถูกต้อง ตรงกับรายการที่กดเลือก","- ชื่อสินค้าและข้อมูลไม่ตรงกับรายการที่กด
+- ราคาสินค้าไม่ตรงกับที่แสดงในหน้า Product List
+- บางรายการแสดง ""ITEM NOT FOUND"" พร้อมราคา $√-1",Fail,เกิดจาก link mapping ผิด ส่งผลให้ข้อมูลทุก field ไม่ตรงกับสินค้าที่เลือก
+TC-L-081,Product Detail,problem_user,User-specific,ตรวจสอบการทำงานของปุ่ม Add to cart ในหน้า Product Detail,"- Login ด้วย problem_user
+- อยู่หน้า Product Detail","1. กดปุ่ม Add to cart
+2. ตรวจสอบการแสดงผล ของปุ่ม และ Cart icon","- ปุ่มเปลี่ยนเป็น Remove
+- Cart icon แสดงตัวเลขเพิ่มขึ้น","- บางรายการกดปุ่ม Add to cart ไม่ได้
+- รายการที่กดไม่ได้ใน Product List บางรายการกลับกดได้ใน Product Detail",Fail,พฤติกรรมของปุ่ม Add to cart ไม่สอดคล้องกันระหว่างหน้า Product List และ Product Detail
+TC-L-082,Product Detail,problem_user,User-specific,ตรวจสอบการทำงานของปุ่ม Remove ในหน้า Product Detail,"- Login ด้วย problem_user
+- อยู่หน้า Product Detail
+- กด Add to cart สินค้าแล้ว","1. กดปุ่ม Remove
+2. ตรวจสอบการแสดงผล ของปุ่ม และ Cart icon","- ปุ่มเปลี่ยนกลับเป็น Add to cart
+- Cart icon ลดตัวเลขลง",- ปุ่มไม่เปลี่ยนกลับเป็น Add to cart หลังกด Remove,Fail,
+TC-L-083,Product Detail,problem_user,User-specific,"ตรวจสอบ Cart state หลัง Add to cart จากหน้า Product Detail
+
+in case: กด ⭠ Back to products เพื่อกลับหน้า Product List","- Login ด้วย problem_user
+- อยู่หน้า Product Detail
+- กด Add to cart สินค้าแล้ว","1. กด ← Back to products
+2. สังเกตปุ่มของสินค้าในหน้า Product List",- ปุ่มของสินค้าที่ Add แล้วแสดงเป็น Remove ตรงรายการเดิม,"- ปุ่ม Remove แสดงผิดรายการ เช่น 
+Add จาก Detail ของ Onesie → กลับมาหน้า List ปุ่ม Remove ไปแสดงที่รายการอื่นแทน",Fail,เกิดจาก link mapping ผิดตั้งแต่ต้น ทำให้ Cart state ไม่ sync กับสินค้าที่เลือกจริง
+TC-L-084,Product Detail,problem_user,User-specific,"ตรวจสอบการทำงานของ Hamburger menu
+
+in case: เลือก About จากหน้า Product Detail","- Login ด้วย problem_user
+- อยู่หน้า Product Detail","1. กด Hamburger menu เพื่อเปิด sidebar
+2. กดเลือกเมนู About
+3. ตรวจสอบการแสดงผล","- ระบบ Redirect ไปหน้า saucelabs.com",- ระบบ Redirect ไปหน้า saucelabs.com/error/404,Fail,"Bug เดียวกับที่พบใน Product List"
+👤 performance_glitch_user,,,,,,,,,,
+TC-L-086,Product Detail,performance_glitch_user,User-specific,"ตรวจสอบ load time ของหน้า Product Detail
+
+in case: Login ด้วย performance_glitch_user","- Login ด้วย performance_glitch_user
+- อยู่หน้า Product List","1. กดชื่อหรือรูปสินค้าใดก็ได้เพื่อเข้าหน้า Product Detail
+2. สังเกต load time ของหน้า",- หน้า Product Detail โหลดในเวลาปกติ ใกล้เคียงกับ standard_user,- หน้า Product Detail โหลดช้าผิดปกติ LCP: 5.32s,Fail,ช้ากว่า standard_user ประมาณ 7 เท่า (baseline: 0.75s) pattern เดียวกับที่พบในหน้า Product List
+👤 error_user,,,,,,,,,,
+TC-L-088,Product Detail,error_user,User-specific,ตรวจสอบการแสดงผลข้อมูลสินค้าในหน้า Product Detail,"- Login ด้วย error_user สำเร็จ
+- อยู่หน้า Product Detail",1. ตรวจสอบการแสดงผลข้อมูลสินค้า,"- ระบบแสดง:
+  - ชื่อสินค้า
+  - รูปสินค้า
+  - description
+  - ราคาสินค้า ถูกต้อง ตรงกับรายการที่กดเลือก","description แสดงข้อความ error แทนรายละเอียดสินค้า: ""A description should be here, but it failed to render! This error has been reported to Backtrace.""",Fail,
+TC-L-089,Product Detail,error_user,User-specific,ตรวจสอบการทำงานของปุ่ม Add to cart ในหน้า Product Detail,"- Login ด้วย error_user สำเร็จ
+- อยู่หน้า Product Detail ของสินค้า","1. กดปุ่ม Add to cart
+2. ตรวจสอบการแสดงผลของปุ่มและ Cart icon","- ปุ่มเปลี่ยนเป็น Remove
+- Cart icon แสดงตัวเลขเพิ่มขึ้น","- ปุ่ม Add to cart ของสินค้าบางรายการ ไม่สามารถกดได้
+",Fail,"รายการที่มีปัญหา: 
+- Sauce Labs Bolt T-Shirt
+- Sauce Labs Fleece Jacket
+- Test.allTheThings() T-Shirt
+
+เหมือนกับที่พบใน Product List"
+TC-L-090,Product Detail,error_user,User-specific,ตรวจสอบการทำงานของปุ่ม Remove ในหน้า Product Detail,"- Login ด้วย error_user
+- Add to cart สินค้าที่ทำได้สำเร็จ
+- อยู่หน้า Product Detail ของสินค้านั้น","1. กดปุ่ม Remove 
+2. ตรวจสอบการแสดงผลของปุ่มและ Cart icon","- ปุ่มเปลี่ยนกลับเป็น Add to cart
+- Cart icon ลดตัวเลขลง",- ปุ่มไม่เปลี่ยนกลับเป็น Add to cart หลังกด Remove,Fail,
+👤 visual_user,,,,,,,,,,
+TC-L-092,Product Detail,visual_user,User-specific,"ตรวจสอบการนำทางและการแสดงผลข้อมูลสินค้าในหน้า Product Detail
+
+in case: Login ด้วย visual_user","- Login ด้วย visual_user สำเร็จ
+- อยู่หน้า Product List","1. กดชื่อหรือรูปสินค้าใดก็ได้
+2. ตรวจสอบ URL และข้อมูลสินค้าที่แสดงในหน้า","- ระบบนำทางไปยังหน้า Product Detail ของสินค้าที่กดเลือก
+- URL ตรงกับ ID ของสินค้าที่เลือก
+- ชื่อสินค้า, รูปสินค้า, description และราคาตรงกับรายการที่กดเลือก",- ราคาสินค้าในหน้า Product Detail ไม่ตรงกับที่แสดงในหน้า Product List,Fail,
+🛒 Cart,,,,,,,,,,
+👤 standard_user,,,,,,,,,,
+TC-L-095,Cart,standard_user,Happy Path,"ตรวจสอบการแสดงผล Cart page 
+
+in case: Cart ว่าง (ไม่มีสินค้า)","- Login ด้วย standard_user สำเร็จ
+- ไม่มีสินค้าใน Cart",1. กดไอคอน Cart บน header,"- ระบบนำทางไปยังหน้า /cart.html
+- แสดง heading ""Your Cart""
+- แสดง column header: QTY | Description
+- ไม่มีรายการสินค้าแสดง
+- ปุ่ม ""Continue Shopping"" และ ""Checkout"" แสดงอยู่ด้านล่าง",,Pass,
+TC-L-096,Cart,standard_user,Happy Path,"ตรวจสอบการแสดงผล Cart page 
+
+in case: มีสินค้าใน Cart","- Login ด้วย standard_user สำเร็จ
+- Add สินค้าอย่างน้อย 1 รายการเข้า Cart แล้ว",1. กดไอคอน Cart บน header,"- ระบบนำทางไปยังหน้า /cart.html
+- แสดง heading ""Your Cart""
+- แต่ละรายการสินค้าแสดง: 
+  - QTY=1
+  - ชื่อสินค้า
+  - Description
+  - ราคา
+  - ปุ่ม Remove
+- ปุ่ม ""Continue Shopping"" และ ""Checkout"" แสดงอยู่ด้านล่าง",,Pass,
+TC-L-097,Cart,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Remove 
+
+in case: กด Remove จากหน้า Cart","- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม ""Remove"" ของสินค้ารายการใดก็ได้
+2. ตรวจสอบการแสดงผลของรายการสินค้าและ Cart badge","- รายการสินค้านั้นหายออกจาก Cart
+- Cart badge ลดลง 1",,Pass,
+TC-L-098,Cart,standard_user,Happy Path,"ตรวจสอบการแสดงผล Cart page 
+
+in case: Remove สินค้าจนเหลือ 0 รายการ","- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอยู่ใน Cart
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม ""Remove"" ของสินค้าจนหมดทุกรายการ","- รายการสินค้าหายออกจาก Cart ทั้งหมด
+- Cart badge หายไปจาก header (ไม่แสดงตัวเลข)
+- ยังคงอยู่ที่หน้า /cart.html โดยไม่ redirect",,Pass,
+TC-L-099,Cart,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Product List 
+
+in case: กดปุ่ม ⭠ Continue Shopping จากหน้า Cart","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม "" ⭠ Continue Shopping""",- ระบบ Redirect ไปหน้า Products (/inventory.html),,Pass,
+TC-L-100,Cart,standard_user,Happy Path,"ตรวจสอบการนำทางไปหน้า Checkout: Your Information
+
+in case: กดปุ่ม Checkout จากหน้า Cart","- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม ""Checkout"" ในหน้า Cart (/cart.html)",- ระบบ Redirect ไปหน้า Checkout: Your Information (/checkout-step-one.html),,Pass,
+TC-L-101,Cart,standard_user,Edge Case,"ตรวจสอบการทำงานของปุ่ม Checkout 
+
+in case: Cart ว่าง","- Login ด้วย standard_user สำเร็จ
+- Cart ว่าง (ไม่มีสินค้า)
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม ""Checkout""
+2. กรอกข้อมูลในหน้า ""Checkout: Your Information""
+3. กดปุ่ม Continue
+4. ตรวจสอบการแสดงผลในหน้า ""Checkout: Overview""
+5. กดปุ่ม Finish",- ระบบแสดง error message หรือ prevent navigation เพื่อไม่ให้ Checkout เมื่อ Cart ว่าง,"- ระบบ Redirect ไปหน้า Checkout: Your Information 
+  (/checkout-step-one.html) ได้ทันที โดยไม่มี error
+- หน้า Checkout: Overview แสดง Item total: $0, 
+  Tax: $0.00, Total: $0.00 และไม่มีรายการสินค้า
+- สามารถกด Finish จนถึงหน้า Checkout: Complete! 
+  ได้สำเร็จทั้งที่ Cart ว่างเปล่า",Fail,
+TC-L-102,Cart,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Checkout 
+
+in case: มีรายการสินค้าอยู่ใน Cart แล้ว ","- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- กดปุ่ม Checkout จากหน้า Cart แล้ว",1. ตรวจสอบการแสดงผล ในหน้า Checkout: Your Information,"- URL เปลี่ยนเป็น /checkout-step-one.html
+- แสดง heading ""Checkout: Your Information""
+- แสดง form 3 fields: 
+  - First Name
+  - Last Name
+  - Zip/Postal Code
+- แสดงปุ่ม ""Cancel"" และ ""Continue""",,Pass,
+TC-L-103,Cart,standard_user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Cancel ในหน้า Checkout: Your Information
+
+in case: กดปุ่ม Cancel ","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Cancel""","- ระบบ Redirect กลับไปหน้า Cart (/cart.html)
+- สินค้าใน Cart ยังคงอยู่ครบ",,Pass,
+TC-L-104,Cart,standard_user,Happy Path,ตรวจสอบการแสดงผลของปุ่ม Cancel ในหน้า Checkout: Your Information,"- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)",1. ตรวจสอบการแสดงผลของปุ่ม Cancel,- ปุ่ม Cancel แสดงไอคอนลูกศรที่สมดุลและถูกต้อง,- ไอคอนลูกศรบนปุ่ม Cancel แสดงผลไม่สมดุล,Fail,พบใน all users
+TC-L-105,Cart,standard_user,Negative,"ตรวจสอบ validation หน้า Checkout: Your Information
+
+in case: กด Continue โดยไม่กรอกข้อมูลใน form","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Continue"" โดยไม่กรอกข้อมูล
+","- ระบบไม่อนุญาตให้ไปหน้าถัดไป
+- ทุก field แสดง error icon (X สีแดง)
+- แสดง error message: ""Error: First Name is required""",,Pass,
+TC-L-106,Cart,standard_user,Negative,"ตรวจสอบ validation หน้า Checkout: Your Information
+
+in case: กด Continue โดยไม่กรอกข้อมูลใน Field: First Name","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Continue"" โดยไม่กรอกข้อมูล ใน Field: First Name
+","- ระบบไม่อนุญาตให้ไปหน้าถัดไป
+- ทุก field แสดง error icon (X สีแดง)
+- แสดง error message: ""Error: First Name is required""",,Pass,
+TC-L-107,Cart,standard_user,Negative,"ตรวจสอบ validation หน้า Checkout: Your Information
+
+in case: กด Continue โดยไม่กรอกข้อมูลใน Field: Last Name","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Continue"" โดยไม่กรอกข้อมูล ใน Field: Last Name
+","- ระบบไม่อนุญาตให้ไปหน้าถัดไป
+- ทุก field แสดง error icon (X สีแดง)
+- แสดง error message: ""Error: Last Name is required""",,Pass,
+TC-L-108,Cart,standard_user,Negative,"ตรวจสอบ validation หน้า Checkout: Your Information
+
+in case: กด Continue โดยไม่กรอกข้อมูลใน Field: Zip/Postal Code","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Continue"" โดยไม่กรอกข้อมูล ใน Field: Zip/Postal Code
+","- ระบบไม่อนุญาตให้ไปหน้าถัดไป
+- ทุก field แสดง error icon (X สีแดง)
+- แสดง error message: ""Error: Postal Code is required""",,Pass,
+TC-L-109,Cart,standard_user,Happy Path,"ตรวจสอบ validation หน้า Checkout: Your Information
+
+in case: กด Continue โดยกรอกข้อมูลใน form ครบถ้วน","- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กดปุ่ม ""Continue"" โดยกรอกข้อมูลใน form ครบถ้วน
+","- URL เปลี่ยนเป็น /checkout-step-two.html
+- แสดง หน้า ""Checkout: Overview""",,Pass,
+TC-L-110,Cart,standard_user,Happy Path,ตรวจสอบการแสดงผล หน้า Checkout: Overview,"- Login ด้วย standard_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Checkout: Overview (/checkout-step-two.html)","1. ตรวจสอบการแสดงผล หน้า Checkout: Overview
+","- แสดง heading ""Checkout: Overview""
+- แสดงรายการสินค้าใน Cart พร้อม QTY, ชื่อ, description, ราคา
+- แสดง Payment Information: 
+- แสดง Shipping Information: 
+- แสดง Price Total: Item total, Tax, และ Total ที่คำนวณถูกต้อง
+- แสดงปุ่ม ""Cancel"" และ ""Finish""",,Pass,
+TC-L-111,Cart,standard_user,Happy Path,ตรวจสอบการทำงานของปุ่ม Cancel ในหน้า Checkout: Overview,"- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Overview (/checkout-step-two.html)","1. กดปุ่ม ""Cancel""","- ระบบ Redirect กลับไปหน้า Product List (/inventory.html)
+- Cart badge ยังแสดงจำนวนสินค้าที่ถูกต้อง
+- สินค้าใน Cart ยังคงอยู่ครบ",,Pass,
+TC-L-112,Cart,standard_user,Happy Path,ตรวจสอบการ Complete order,"- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Overview (/checkout-step-two.html)","1. กดปุ่ม ""Finish"" ในหน้า Checkout: Overview","- URL เปลี่ยนเป็น /checkout-complete.html
+- แสดง heading ""Checkout: Complete!""
+- แสดง checkmark icon
+- แสดงข้อความ ""Thank you for your order!""
+- แสดง sub-text ""Your order has been dispatched, 
+  and will arrive just as fast as the pony can get there!""
+- แสดงปุ่ม ""Back Home""
+- Cart badge หายไปจาก header",,Pass,
+TC-L-113,Cart,standard_user,Happy Path,"ตรวจสอบการนำทางกลับหน้า Product List 
+
+in case: กดปุ่ม Back Home จากหน้า Checkout Complete","- Login ด้วย standard_user สำเร็จ
+- อยู่ที่หน้า Checkout: Complete (/checkout-complete.html)","1. กดปุ่ม ""Back Home""","- URL เปลี่ยนเป็น /inventory.html
+- แสดงหน้า Product List ปกติ
+- Cart badge ไม่แสดง (Cart ว่างหลัง order complete)",,Pass,
+👤 problem_user,,,,,,,,,,
+TC-L-115,Cart,problem_user,User-specific,ตรวจสอบการทำงานของ Field: Last Name ในหน้า Checkout: Your Information,"- Login ด้วย problem_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)","1. กรอกข้อมูลใน Field: Last Name
+",- ข้อความที่กรอกแสดงใน Field: Last Name,- ข้อความที่กรอกใน Field: Last Name ไปแสดงใน Field: First Name แทน ทำให้ Field: Last Name ว่างและกด Continue ไม่ได้,Fail,
+TC-L-116,Cart,problem_user,User-specific,"ตรวจสอบ Cart state ในหน้า Product Detail 
+
+in case: กดชื่อสินค้าจากหน้า Cart","- Login ด้วย problem_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Cart (/cart.html)",1. กดชื่อสินค้าใดก็ได้ในหน้า Cart,- หน้า Product Detail แสดงปุ่ม Remove และราคาที่ถูกต้อง,- หน้า Product Detail แสดงปุ่มเป็น Add to cart ทั้งที่สินค้านั้นอยู่ใน Cart แล้ว และแสดงข้อมูลสินค้าไม่ตรงกับสินค้าที่เลือก,Fail,
+👤 performance_glitch_user,,,,,,,,,,
+TC-L-118,Cart,performance_glitch_user,User-specific,"ตรวจสอบ INP ของปุ่มนำทางในหน้า Cart + Checkout 
+
+in case: กดปุ่ม Continue Shopping, Cancel, และ Back Home","- Login ด้วย performance_glitch_user สำเร็จ
+- เปิด Chrome DevTools → tab Performance → เปิด Live metrics
+- อยู่ที่หน้า Cart (/cart.html)","1. กดปุ่ม Continue Shopping แล้วสังเกตค่า INP
+2. กดไอคอน Cart กลับมาหน้า Cart แล้วกดปุ่ม Checkout
+3. กดปุ่ม Cancel แล้วสังเกตค่า INP
+4. กด Checkout → กรอกข้อมูล → กด Continue → กด Finish
+5. กดปุ่ม Back Home แล้วสังเกตค่า INP",- ทุกปุ่ม INP ≤ 200ms (Good),"- ทุกปุ่ม INP: 5,056ms (Poor)",Fail,
+👤 error_user,,,,,,,,,,
+TC-L-120,Cart,error_user,User-specific,ตรวจสอบการทำงานของ Field: Last Name ในหน้า Checkout: Your Information,"- Login ด้วย error_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Checkout: Your Information (/checkout-step-one.html)",1. กรอกข้อมูลใน Field: Last Name,- ข้อความที่กรอกแสดงใน Field: Last Name,- ไม่สามารถพิมพ์ข้อมูลใน Field: Last Name ได้ และระบบยังอนุญาตให้สามารถกด Continue ผ่านได้ทั้งที่ Field: Last Name ว่างอยู่,Fail,
+TC-L-121,Cart,error_user,User-specific,ตรวจสอบการทำงานของปุ่ม Finish ในหน้า Checkout: Overview,"- Login ด้วย error_user สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart
+- อยู่ที่หน้า Checkout: Overview (/checkout-step-two.html)",1. กดปุ่ม Finish,- ระบบ Redirect ไปหน้า Checkout: Complete (/checkout-complete.html),- ไม่สามารถ กดปุ่ม Finish ได้ ระบบไม่ตอบสนอง,Fail,
+👤 visual_user,,,,,,,,,,
+TC-L-123,Cart,visual_user,User-specific,ตรวจสอบการแสดงผลของปุ่ม Checkout ในหน้า Cart,"- Login ด้วย visual_user สำเร็จ
+- อยู่ที่หน้า Cart (/cart.html)",1. ตรวจสอบการแสดงผล ตำแหน่งของปุ่ม Checkout,- ปุ่ม Checkout แสดงอยู่ด้านล่างขวาของหน้า Cart แถวเดียวกับปุ่ม Continue Shopping,- ปุ่ม Checkout แสดงอยู่มุมขวาบนของหน้า,Fail,
+[➜ Logout,,,,,,,,,,
+TC-L-125,Logout,any user,Happy Path,"ตรวจสอบการทำงานของปุ่ม Logout 
+
+in case: กดปุ่ม Logout จาก Sidebar",- Login ด้วย user ใดก็ได้ สำเร็จ,"1. กด Hamburger menu
+2. กดปุ่ม Logout",- ระบบ Redirect ไปหน้า Login (/index.html),,Pass,
+TC-L-126,Logout,any user,Edge Case,"ตรวจสอบการนำทางกลับหน้าก่อนหน้า 
+
+in case: กดปุ่ม Back หลัง Logout","- Login ด้วย user ใดก็ได้ สำเร็จ
+- Logout แล้ว อยู่ที่หน้า Login (/index.html)",1. กดปุ่ม Back ของ Browser,- ระบบไม่อนุญาตให้กลับเข้าหน้าที่ต้อง Login และ Redirect กลับมาหน้า Login (/index.html),,Pass,
+TC-L-127,Logout,any user,Happy Path,"ตรวจสอบ Cart state 
+
+in case: Logout ขณะมีสินค้าใน Cart แล้ว Login ใหม่","- Login ด้วย user ใดก็ได้ สำเร็จ
+- มีสินค้าอย่างน้อย 1 รายการใน Cart","1. กด Hamburger menu แล้วกด Logout
+2. Login ใหม่อีกครั้ง
+3. ตรวจสอบ Cart",- Cart ยังคงมีสินค้าครบตามที่ Add ไว้ก่อน Logout โดยรายการสินค้าไม่เปลี่ยนแปลง,,Pass,
