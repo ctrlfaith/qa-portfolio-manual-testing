@@ -20,7 +20,7 @@
 | Resource | Link |
 |----------|------|
 | 🐛 Bug Report (Interactive) | [View Live Page](https://ctrlfaith.github.io/qa-portfolio-manual-testing/) |
-| 📋 Test Plan & Test Cases (Google Sheets) | [Open Sheets](https://docs.google.com/spreadsheets/d/1iFCHBdt1xipGi2chOP_mHmN_25cUc-CUQ2COYlnDL94) |
+| 📋 Test Plan & Test Cases (Google Sheets) | [Open Sheets](https://docs.google.com/spreadsheets/d/1iFCHBdt1xipGi2chOP_mHmN_25cUc-CUQ2COYInDL94/edit?usp=sharing) |
 | 📁 Test Plan (CSV) | [test-plan.csv](./test-plan.csv) |
 | 📁 Test Cases (CSV) | [test-cases.csv](./test-cases.csv) |
 
