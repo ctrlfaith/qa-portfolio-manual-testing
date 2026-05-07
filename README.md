@@ -32,11 +32,11 @@
 | Feature | TC Count | Users Tested |
 |---------|----------|--------------|
 | Login | 17 TCs | all users |
-| Product List | 44 TCs | all 6 users |
+| Product List | 46 TCs | all 6 users |
 | Product Detail | 27 TCs | all 6 users |
 | Cart & Checkout | 29 TCs | all 6 users |
 | Logout | 3 TCs | any user |
-| **Total** | **~120 TCs** | |
+| **Total** | **~129 TCs** | |
 
 ### Users Tested
 | User | Behavior |
@@ -55,12 +55,16 @@
 
 ## 🐛 Bugs Found — Summary
 
-**Total: 24 bugs**
+**Total: 25 bugs**
+
+> นับตาม root cause ไม่ใช่จำนวน TC ที่ Fail
+> TC ที่ Fail ทั้งหมดมี 44 cases แต่หลาย TC เกิดจาก bug เดียวกัน
+> เช่น BUG-005 ทำให้ Sort ของ problem_user Fail ทั้ง 3 option — นับเป็น 1 bug
 
 | Severity | Count | Examples |
 |----------|-------|---------|
 | 🔴 Critical | 6 | Link mapping ผิด, Checkout พัง, ราคาเปลี่ยนเอง |
-| 🟠 High | 9 | Performance LCP >5s, Sort ไม่ทำงาน, ปุ่มพัง |
+| 🟠 High | 10 | Performance LCP >5s, Sort ไม่ทำงาน, ปุ่มพัง |
 | 🟡 Medium | 5 | About → 404, Case-sensitive login, ราคา inconsistent |
 | 🟢 Low | 4 | UI เบี้ยว, Reset App State ไม่ sync real-time |
 
@@ -72,6 +76,7 @@
 - **BUG-013** `[Critical]` — ราคาสินค้าเปลี่ยนแปลงทุกครั้งที่กด Product Detail แล้วกลับมา
 - **BUG-022** `[Critical]` — กรอก Last Name แล้ว input ไปโชว์ที่ First Name แทน
 - **BUG-020** `[High]` — Checkout ด้วย Cart ว่างได้ ไม่มี validation, Total: $0.00
+- **BUG-025** `[High]` — visual_user Sort Price เรียงลำดับราคาไม่ถูกต้อง ไม่ว่าจะ low→high หรือ high→low
 
 ---
 
@@ -82,7 +87,7 @@ qa-portfolio-manual-testing/
 ├── README.md          ← You are here
 ├── index.html         ← Bug Report Interactive Page (deploy via GitHub Pages)
 ├── test-plan.csv      ← Test Plan (scope, approach, risk, user strategy)
-└── test-cases.csv     ← Test Cases TC-L-001 ~ TC-L-127
+└── test-cases.csv     ← Test Cases TC-L-001 ~ TC-L-129
 ```
 
 ---
