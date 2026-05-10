@@ -101,10 +101,9 @@ qa-portfolio-manual-testing/
 
 ---
 
-## 👤 Author
-
-**Phuriphatthanachai Rattanatham**  
-GitHub: [github.com/ctrlfaith](https://github.com/ctrlfaith)
+## 👨‍💻 Author
+**Name:** Phuriphatthanachai Rattanatham  
+**GitHub:** [@ctrlfaith](https://github.com/ctrlfaith)
 
 > Part of a 4-project QA Portfolio targeting QA/Software Tester positions  
 > → [Project 1: API Testing](https://github.com/ctrlfaith/qa-portfolio-api-testing)
